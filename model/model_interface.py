@@ -49,7 +49,7 @@ class MInterface(pl.LightningModule):
         )
         return outputs
 
-    def generate(self, batch,temperature=0.8,do_sample=False,num_beams=1,max_gen_length=64,min_gen_length=1,repetition_penalty=1.0,length_penalty=1.0, num_return_sequences=1):
+    def generate(self, batch,temperature=0.8,do_sample=False,num_beams=1,max_gen_length=16,min_gen_length=1,repetition_penalty=1.0,length_penalty=1.0, num_return_sequences=1):
         input_embeds = self.wrap_emb(batch)
         attention_mask = self._build_attention_mask(batch["tokens"])
         generation_kwargs = dict(
@@ -95,7 +95,6 @@ class MInterface(pl.LightningModule):
         self.val_content={
             "generate_raw":[],
             "generate_item":[],
-            "explanation":[],
             "real_item":[],
         }
 
@@ -106,15 +105,13 @@ class MInterface(pl.LightningModule):
         for i, generate_raw in enumerate(generate_output):
             real_item = batch['correct_answer'][i]
             generate_item = self._extract_first_item(generate_raw)
-            explanation = self._generate_explanation_from_item(generate_item)
-            output.append((str(generate_raw), generate_item, explanation, real_item))
+            output.append((str(generate_raw), generate_item, real_item))
         return output
 
     def on_validation_batch_end(self, outputs, batch, batch_idx, dataloader_idx=0):
-        for generate_raw, generate_item, explanation, real_item in outputs:
+        for generate_raw, generate_item, real_item in outputs:
             self.val_content["generate_raw"].append(generate_raw)
             self.val_content["generate_item"].append(generate_item)
-            self.val_content["explanation"].append(explanation)
             self.val_content["real_item"].append(real_item)
 
     def on_validation_epoch_end(self):
