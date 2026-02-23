@@ -1,3 +1,1 @@
-﻿[TodayHere]時点で、Customer_[UserIdHere] は [TodaySeqHere] を購入しています。
-次に購入される可能性が最も高い商品を1つだけ予測してください。
-出力は商品名のみ（1語）で、説明・記号・余計な文字は出力しないでください。
+As of [TodayHere], Customer [UserIdHere] purchased [TodaySeqHere]. Predict the single most likely item they will purchase next. Output only the product name (one word).
