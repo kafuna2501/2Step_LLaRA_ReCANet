@@ -1,1 +1,10 @@
-As of [TodayHere], Customer [UserIdHere] purchased [TodaySeqHere]. Predict the single most likely item they will purchase next. Output only the product name (one word).
+INPUT
+date_time: [TodayHere]
+customer_id: Customer_[UserIdHere]
+purchased_so_far_today: [TodaySeqHere]
+
+TASK
+Predict the single most likely NEXT item this customer will purchase today.
+
+OUTPUT FORMAT (strict)
+item: <ONE product name>
