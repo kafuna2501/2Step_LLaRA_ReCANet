@@ -139,7 +139,16 @@ if __name__ == '__main__':
     parser.add_argument('--trust_remote_code', action='store_true')
     parser.add_argument('--rec_model_path', default='./rec_model/retail.pt', type=str)
     parser.add_argument('--prompt_path', default='/content/LLaRA/prompt/retail.txt', type=str)
-    parser.add_argument('--system_prompt', default='', type=str)
+    parser.add_argument('--system_prompt', default=(
+        "You are a next-item prediction engine for retail purchase sequences.\n\n"
+        "Hard rules (must follow):\n"
+        "- Output EXACTLY ONE LINE.\n"
+        "- The line must start with: item:\n"
+        "- After \"item:\" output ONE product name only.\n"
+        "- Do NOT output any other text, explanations, punctuation, quotes, bullets, JSON, or extra lines.\n"
+        "- Do NOT include parentheses or variants (e.g., sizes). Output the canonical product name only.\n"
+        "- If you are unsure, still output your best single guess following the same one-line format."
+    ), type=str)
     parser.add_argument('--use_chat_template', action='store_true')
     parser.add_argument('--output_dir', default='./output/', type=str)
     parser.add_argument('--ckpt_path', type=str)
@@ -172,3 +181,4 @@ if __name__ == '__main__':
         args.padding_item_id = 866
 
     main(args)
+
