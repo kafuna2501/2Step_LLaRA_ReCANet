@@ -96,7 +96,7 @@ class TrainCollater:
         inputs_text = [self._render_prompt(x) for x in inputs_text]
 
         targets_text = [
-            str(sample['correct_answer'])
+            "item: " + str(sample['correct_answer'])
             for sample in batch
         ]
 
@@ -241,3 +241,4 @@ class DInterface(pl.LightningDataModule):
             print('Prompt Example \n{}'.format(random.choice(self.prompt_list)))
         else:
             self.prompt_list = []
+
